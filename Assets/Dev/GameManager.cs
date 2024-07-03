@@ -22,4 +22,19 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public InputManager inputManager; 
+    public DataController dataController; 
+    public DataCamera dataCamera ;
+
+    public void UpdateDataController(DataController _dataController)
+    {
+        dataController = _dataController; 
+    }
+    public void UpdateDataCamera(DataCamera _dataCamera)
+    {
+        dataCamera = _dataCamera;
+    }
+    public Vector3 GetDataCameraDirectionCam()
+    {
+        return dataCamera.directionCam;
+    }
 }

@@ -20,9 +20,15 @@ public class ControllerMain : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        PlayStateCurrent();
         ChangeState();
-        transform.position = dataController.destination; 
+
+        transform.position = Vector3.Lerp(transform.position,dataController.destination,Time.deltaTime * 6f);
+
+        GameManager.instance.UpdateDataController(dataController);
+    }
+    private void FixedUpdate()
+    {
+        PlayStateCurrent();
     }
     private void InitInterface()
     {
