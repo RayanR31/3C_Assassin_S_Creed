@@ -9,6 +9,7 @@ public struct DataController
     public float currentSpeed;
     public float targetSpeed;
     public Vector3 direction;
+    public Vector3 destination;
 
     public enum State 
     {
@@ -19,4 +20,5 @@ public struct DataController
 
     public State currentState ;
     public State targetState ;
+    public bool changeState ;
 }

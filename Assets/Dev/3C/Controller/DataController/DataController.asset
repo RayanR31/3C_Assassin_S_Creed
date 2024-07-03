@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d75fc3cb4c1f7a745a8986b670d5592b, type: 3}
   m_Name: DataController
   m_EditorClassIdentifier: 
-  speed_Move: 3
+  speed_Move: 5
   angularDrag_Move: 2
   pourcentageMagnitude_Move: 1
   graviteY_Move: 1

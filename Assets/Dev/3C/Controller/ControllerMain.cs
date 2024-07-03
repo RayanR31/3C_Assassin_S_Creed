@@ -10,20 +10,19 @@ public class ControllerMain : MonoBehaviour
     [SerializeField] private List<IPlayerState> IPlayerStateArray = new List<IPlayerState>();
     [SerializeField] private ScriptableObjectController scriptableObjectController ;
 
-    /*[SerializeField] private IGestionState gestionState = new GestionState();
-
-    */
-
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         InitInterface();
+        dataController.destination = transform.position;  
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         PlayStateCurrent();
+        ChangeState();
+        transform.position = dataController.destination; 
     }
     private void InitInterface()
     {
@@ -35,5 +34,15 @@ public class ControllerMain : MonoBehaviour
         IPlayerStateArray[(int)dataController.currentState].CurrentStateUpdate(ref dataController, scriptableObjectController);
         IPlayerStateArray[(int)dataController.currentState].ChangeStateByInput(ref dataController);
         IPlayerStateArray[(int)dataController.currentState].ChangeStateByNature(ref dataController);
+    }
+    private void ChangeState()
+    {
+        if (dataController.changeState)
+        {
+            IPlayerStateArray[(int)dataController.currentState].ExitState(ref dataController);
+            dataController.currentState = dataController.targetState;
+            IPlayerStateArray[(int)dataController.currentState].EnterState(ref dataController);
+            dataController.changeState = false;
+        }
     }
 }
