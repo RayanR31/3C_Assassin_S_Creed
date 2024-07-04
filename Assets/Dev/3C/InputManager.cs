@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,13 +19,16 @@ public class InputManager : MonoBehaviour
     {
         return InputMove;
     }
-
-    protected void SetInputJump(InputAction.CallbackContext context)
+    public void SetInputJump(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             InputJump = true;
         }
+    }
+    public void CancelInputJump()
+    {
+        InputJump = false;
     }
     public bool GetInputJump()
     {

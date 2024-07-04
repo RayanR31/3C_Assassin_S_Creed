@@ -8,6 +8,7 @@ public struct DataController
 {
     public float currentSpeed;
     public float targetSpeed;
+    public float currentGravity ;
     public Vector3 direction;
     public Vector3 destination;
 

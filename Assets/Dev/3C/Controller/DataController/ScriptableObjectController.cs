@@ -7,16 +7,19 @@ public class ScriptableObjectController : ScriptableObject
 {
     [Header("Move")]
     public float speed_Move;
-    public float angularDrag_Move;
-    public float pourcentageMagnitude_Move = 1;
-    public float graviteY_Move = 1;
-    public AnimationCurve curve_Move;
+
+    [Header("Move : If calcul direction Slerp or Lerp")]
+    public float angularDragSlerp_Move;
+    public float angularDragLerp_Move;
+    public bool DirectionInSlerp ;
 
     [Header("Jump")]
     public float speed_Jump;
     public float angularDrag_Jump;
     public float pourcentageMagnitude_Jump = 1;
-    public float graviteY_Jump = 1;
+    public float force_Jump = 1;
+    public float downForce_Jump = 1;
+    public float time_Jump = 1;
     public AnimationCurve curve_Jump;
 
     [Header("Fall")]

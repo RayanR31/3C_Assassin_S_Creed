@@ -32,7 +32,9 @@ public class ControllerMain : MonoBehaviour
     }
     private void InitInterface()
     {
-        IPlayerStateArray.Add(new IPlayerMoveController());
+        IPlayerStateArray.Add(new IPMove());
+        IPlayerStateArray.Add(new IPJump());
+        IPlayerStateArray.Add(new IPFall());
     }
 
     private void PlayStateCurrent()

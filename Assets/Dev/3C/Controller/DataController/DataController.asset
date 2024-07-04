@@ -13,22 +13,45 @@ MonoBehaviour:
   m_Name: DataController
   m_EditorClassIdentifier: 
   speed_Move: 5
-  angularDrag_Move: 2
-  pourcentageMagnitude_Move: 1
-  graviteY_Move: 1
-  curve_Move:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  angularDragSlerp_Move: 6
+  angularDragLerp_Move: 2
+  DirectionInSlerp: 1
   speed_Jump: 3
   angularDrag_Jump: 2
-  pourcentageMagnitude_Jump: 1
-  graviteY_Jump: 1
+  pourcentageMagnitude_Jump: 3
+  force_Jump: 4
+  downForce_Jump: 1
+  time_Jump: 2
   curve_Jump:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.39047483
+      outSlope: -0.39047483
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5742836
+      value: 0.7757567
+      inSlope: -0.68291384
+      outSlope: -0.68291384
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11062672
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.8222383
+      outSlope: -1.8222383
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
