@@ -34,7 +34,7 @@ public class GS_Move : GestionState
             }
             else
             {
-                Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * directionsWorld[i] * sizes[i], Color.green);
+               //Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * directionsWorld[i] * sizes[i], Color.green);
             }
 
 
@@ -48,12 +48,12 @@ public class GS_Move : GestionState
                 }
                 else
                 {
-                    Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * directionsUp[1] * 1f, Color.green);
+                    //Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * directionsUp[1] * 1f, Color.green);
                 }
             }
             else
             {
-                Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * directionsUp[0] * 1f, Color.green);
+               // Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * directionsUp[0] * 1f, Color.green);
             }
         }
     }
@@ -67,20 +67,23 @@ public class GS_Move : GestionState
         }
     }
     private float desY; 
+    private Vector3 hitNormal = Vector3.up; 
     public void CalculPointY(ref DataController _dataController , ScriptableObjectController _dataScriptable)
     {
         RaycastHit hit;
 
-        if (Physics.SphereCast(_dataController.destination, 1f, Quaternion.LookRotation(_dataController.direction) * -Vector3.up, out hit, 6f, 1 << 0))
+        if (Physics.SphereCast(_dataController.destination, 1f, Quaternion.LookRotation(hitNormal) * -Vector3.forward, out hit, 1.3f, 1 << 0))
         {
-            desY = hit.point.y + 0.5f; 
+            desY = hit.point.y + 0.5f;
+            hitNormal = hit.normal;
+            Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(hitNormal) * -Vector3.forward * 5f, Color.blue);
+            _dataController.destination.y += (desY - _dataController.destination.y) * -_dataScriptable.graviteY_Fall * Time.fixedDeltaTime;
         }
         else
         {
-            //Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * -Vector3.up * 1.3f, Color.red);
+            Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(hitNormal) * -Vector3.forward * 5f, Color.blue);
+            _dataController.targetState = DataController.State.fall;
+            _dataController.changeState = true;
         }
-
-        _dataController.destination.y += (desY - _dataController.destination.y) * -_dataScriptable.graviteY_Fall * Time.fixedDeltaTime;
-
     }
 }

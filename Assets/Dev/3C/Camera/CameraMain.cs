@@ -10,6 +10,8 @@ public class CameraMain : MonoBehaviour
     [SerializeField] private bool addCompteur; 
     [SerializeField] private int compteur; 
     [SerializeField] private float timerSecuriteDecalage; 
+    [SerializeField] private float valueY ;
+    private float timer; 
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,26 @@ public class CameraMain : MonoBehaviour
         pointCamera.position = Vector3.Lerp(pointCamera.position,GameManager.instance.dataController.destination,Time.deltaTime * 3f);
 
         dataCamera.directionCam = cam.transform.eulerAngles;
+
+        /*if (GameManager.instance.dataController.currentState == DataController.State.move || compteur > 2)
+        {
+            timer += Time.deltaTime; 
+            if(timer < 0.6)
+            {
+                pointCamera.position = Vector3.Lerp(pointCamera.position, new Vector3(GameManager.instance.dataController.destination.x, valueY, GameManager.instance.dataController.destination.z), Time.deltaTime * 5f);
+            }
+            else if (timer > 0.05f)
+            {
+                valueY = Mathf.Lerp(valueY, GameManager.instance.dataController.destination.y, Time.deltaTime * 5f);
+                pointCamera.position = Vector3.Lerp(pointCamera.position, new Vector3(GameManager.instance.dataController.destination.x, GameManager.instance.dataController.destination.y, GameManager.instance.dataController.destination.z), Time.deltaTime * 5f);
+            }
+            //valueY = Mathf.Lerp(valueY,GameManager.instance.dataController.destination.y,Time.deltaTime * 5f);
+        }
+        else
+        {
+            timer = 0; 
+            pointCamera.position = Vector3.Lerp(pointCamera.position, new Vector3(GameManager.instance.dataController.destination.x, valueY, GameManager.instance.dataController.destination.z), Time.deltaTime * 5f);
+        }
 
         if (addCompteur == false && GameManager.instance.dataController.currentState == DataController.State.jump)
         {
@@ -47,7 +69,7 @@ public class CameraMain : MonoBehaviour
             {
                 timerSecuriteDecalage = 0;
             }
-        }
+        }*/
 
         GameManager.instance.UpdateDataCamera(dataCamera); 
     }

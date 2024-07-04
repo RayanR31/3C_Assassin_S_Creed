@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class GS_Fall : GestionState
 {
-
     public void StateInMove(ref DataController _dataController)
     {
-            RaycastHit hit;
+        RaycastHit hit;
 
         if (Physics.SphereCast(_dataController.destination, 1f, Quaternion.LookRotation(_dataController.direction) * -Vector3.up, out hit, 1.1f, 1 << 0))
         {
@@ -16,7 +15,7 @@ public class GS_Fall : GestionState
         }
         else
         {
-            Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * -Vector3.up * 1.3f, Color.red);
+            //Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * -Vector3.up * 1.3f, Color.red);
         }
     }
 }

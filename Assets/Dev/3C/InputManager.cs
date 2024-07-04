@@ -21,7 +21,7 @@ public class InputManager : MonoBehaviour
     }
     public void SetInputJump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && GameManager.instance.dataController.currentState == DataController.State.move)
         {
             InputJump = true;
         }
