@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d75fc3cb4c1f7a745a8986b670d5592b, type: 3}
   m_Name: DataController
   m_EditorClassIdentifier: 
-  speed_Move: 5
+  speed_Move: 10
   angularDragSlerp_Move: 6
   angularDragLerp_Move: 2
   DirectionInSlerp: 1
-  speed_Jump: 3
+  speed_Jump: 6
   angularDrag_Jump: 2
-  pourcentageMagnitude_Jump: 3
-  force_Jump: 4
-  downForce_Jump: 1
-  time_Jump: 2
+  pourcentageMagnitude_Jump: 2
+  force_Jump: 5
+  downForce_Jump: 2
+  time_Jump: 0.5
   curve_Jump:
     serializedVersion: 2
     m_Curve:
@@ -57,11 +57,30 @@ MonoBehaviour:
     m_RotationOrder: 4
   speed_Fall: 3
   angularDrag_Fall: 2
-  pourcentageMagnitude_Fall: 1
-  graviteY_Fall: 1
+  pourcentageMagnitude_Fall: 2
+  graviteY_Fall: -3
+  time_Fall: 0.5
   curve_Fall:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

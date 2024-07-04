@@ -22,7 +22,7 @@ public class IPJump : IPlayerState
         _dataController.destination += _dataController.direction * _dataController.currentSpeed * Time.fixedDeltaTime;
         _dataController.destination.y += Vector3.up.y * (_dataController.currentGravity * _dataScriptable.curve_Jump.Evaluate(ratioT)) * Time.fixedDeltaTime;
 
-        gs_jump.CheckWall(ref _dataController, _dataScriptable.speed_Move);
+        gs_jump.CheckWall(ref _dataController, _dataScriptable.speed_Jump);
     }
 
     public void ExitState(ref DataController _dataController)

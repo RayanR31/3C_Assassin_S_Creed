@@ -6,7 +6,7 @@ public class GestionState
 {
     private float currentForceCollision;
 
-    public void CheckWall(ref DataController _dataController, float speed)
+    public virtual void CheckWall(ref DataController _dataController, float speed)
     {
         Vector3[] directionsWorld = {
                 -Vector3.forward,
@@ -25,7 +25,7 @@ public class GestionState
             RaycastHit hit;
 
             // Vérifie s'il y a une collision dans la direction actuelle
-            if (Physics.SphereCast(_dataController.destination, 0.5f, Quaternion.LookRotation(_dataController.direction) * directionsWorld[i], out hit, sizes[i], 1 << 0 | 1 << 7))
+            if (Physics.SphereCast(_dataController.destination, 0.5f, Quaternion.LookRotation(_dataController.direction) * directionsWorld[i], out hit, sizes[i], 1 << 0))
             {
                 _dataController.destination += (hit.normal * currentForceCollision * Time.fixedDeltaTime); // 15 valeur ok && 1 de distance
             }

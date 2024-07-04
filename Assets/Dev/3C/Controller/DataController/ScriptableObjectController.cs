@@ -27,5 +27,6 @@ public class ScriptableObjectController : ScriptableObject
     public float angularDrag_Fall;
     public float pourcentageMagnitude_Fall = 1;
     public float graviteY_Fall = 1;
+    public float time_Fall = 1;
     public AnimationCurve curve_Fall ;
 }
