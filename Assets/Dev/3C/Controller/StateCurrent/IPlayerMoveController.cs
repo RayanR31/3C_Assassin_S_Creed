@@ -20,7 +20,7 @@ public class IPlayerMoveController : IPlayerState
         _dataController.direction = Quaternion.Euler(0,GameManager.instance.dataCamera.directionCam.y,0) * inputMove ;
         _dataController.destination += _dataController.direction * _dataController.currentSpeed * Time.fixedDeltaTime;
 
-        gs_move.CheckWall(ref _dataController , _dataScriptable.speed_Move); 
+        gs_move.CheckWall(ref _dataController); 
     }
 
     public void ExitState(ref DataController _dataController)

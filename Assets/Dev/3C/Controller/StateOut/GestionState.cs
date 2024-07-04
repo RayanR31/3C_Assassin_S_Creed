@@ -6,7 +6,7 @@ public class GestionState
 {
     private float currentForceCollision;
 
-    public virtual void CheckWall(ref DataController _dataController, float speed)
+    public virtual void CheckWall(ref DataController _dataController)
     {
         Vector3[] directionsWorld = {
                 -Vector3.forward,
@@ -16,9 +16,9 @@ public class GestionState
                Vector3.right,
                Vector3.left};
 
-        float[] sizes = { 1f, 1f, 2f, 1f, 1f, 1f };
+        float[] sizes = { 1f, 1f, 1f, 1f, 1f, 1f };
 
-        currentForceCollision = (speed / 10) * 15;
+        currentForceCollision = 15f; //(speed / 10) * 15;
         // Parcours chaque direction pour détecter les collisions avec les murs
         for (int i = 0; i < directionsWorld.Length; i++)
         {

@@ -22,7 +22,7 @@ public class IPJump : IPlayerState
         _dataController.destination += _dataController.direction * _dataController.currentSpeed * Time.fixedDeltaTime;
         _dataController.destination.y += Vector3.up.y * (_dataController.currentGravity * _dataScriptable.curve_Jump.Evaluate(ratioT)) * Time.fixedDeltaTime;
 
-        gs_jump.CheckWall(ref _dataController, _dataScriptable.speed_Jump);
+        gs_jump.CheckWall(ref _dataController);
     }
 
     public void ExitState(ref DataController _dataController)
@@ -47,13 +47,13 @@ public class IPJump : IPlayerState
     {
         Vector3 inputMove = new Vector3(GameManager.instance.inputManager.GetInputMove().x, 0, GameManager.instance.inputManager.GetInputMove().y) * _dataScriptable.pourcentageMagnitude_Jump;
 
-        if (_dataScriptable.DirectionInSlerp)
+        if (_dataScriptable.DirectionInSlerp_Jump)
         {
-            _dataController.direction = Vector3.Slerp(_dataController.direction, Quaternion.Euler(0, GameManager.instance.dataCamera.directionCam.y, 0) * inputMove, Time.fixedDeltaTime * _dataScriptable.angularDragSlerp_Move);
+            _dataController.direction = Vector3.Slerp(_dataController.direction, Quaternion.Euler(0, GameManager.instance.dataCamera.directionCam.y, 0) * inputMove, Time.fixedDeltaTime * _dataScriptable.angularDragSlerp_Jump);
         }
         else
         {
-            _dataController.direction = Vector3.Lerp(_dataController.direction, Quaternion.Euler(0, GameManager.instance.dataCamera.directionCam.y, 0) * inputMove, Time.fixedDeltaTime * _dataScriptable.angularDragLerp_Move);
+            _dataController.direction = Vector3.Lerp(_dataController.direction, Quaternion.Euler(0, GameManager.instance.dataCamera.directionCam.y, 0) * inputMove, Time.fixedDeltaTime * _dataScriptable.angularDragLerp_Jump);
         }
     }
     private void GestionCurveJump(ref DataController _dataController, ScriptableObjectController _dataScriptable)

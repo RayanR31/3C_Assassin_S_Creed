@@ -25,6 +25,8 @@ public class ControllerMain : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position,dataController.destination,Time.deltaTime * 6f);
 
         GameManager.instance.UpdateDataController(dataController);
+        Debug.DrawRay(dataController.destination, dataController.direction * 4f , Color.blue);
+        Debug.Log(GameManager.instance.inputManager.GetInputJump()); 
     }
     private void FixedUpdate()
     {

@@ -9,14 +9,14 @@ public class GS_Fall : GestionState
     {
             RaycastHit hit;
 
-            if (Physics.SphereCast(_dataController.destination, 1f, Quaternion.LookRotation(_dataController.direction) * -Vector3.up, out hit, 1.1f , 1 << 0))
-            {
-                _dataController.targetState = DataController.State.move;
-                _dataController.changeState = true;
-            }
-            else
-            {
-                Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * -Vector3.up * 1.3f, Color.red);
-            }
+        if (Physics.SphereCast(_dataController.destination, 1f, Quaternion.LookRotation(_dataController.direction) * -Vector3.up, out hit, 1.1f, 1 << 0))
+        {
+            _dataController.targetState = DataController.State.move;
+            _dataController.changeState = true;
+        }
+        else
+        {
+            Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * -Vector3.up * 1.3f, Color.red);
+        }
     }
 }

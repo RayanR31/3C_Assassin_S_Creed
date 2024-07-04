@@ -15,12 +15,11 @@ MonoBehaviour:
   speed_Move: 10
   angularDragSlerp_Move: 6
   angularDragLerp_Move: 2
-  DirectionInSlerp: 1
+  DirectionInSlerp_Move: 1
   speed_Jump: 6
-  angularDrag_Jump: 2
   pourcentageMagnitude_Jump: 2
-  force_Jump: 5
-  downForce_Jump: 2
+  force_Jump: 8
+  downForce_Jump: 4
   time_Jump: 0.5
   curve_Jump:
     serializedVersion: 2
@@ -28,15 +27,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.39047483
-      outSlope: -0.39047483
+      inSlope: -0.23207256
+      outSlope: -0.23207256
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.5742836
-      value: 0.7757567
+      time: 0.7784157
+      value: 0.8193511
       inSlope: -0.68291384
       outSlope: -0.68291384
       tangentMode: 0
@@ -46,8 +45,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -1.8222383
-      outSlope: -1.8222383
+      inSlope: -3.6976943
+      outSlope: -3.6976943
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -55,10 +54,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed_Fall: 3
-  angularDrag_Fall: 2
+  angularDragSlerp_Jump: 6
+  angularDragLerp_Jump: 2
+  DirectionInSlerp_Jump: 0
+  speed_Fall: 6
   pourcentageMagnitude_Fall: 2
-  graviteY_Fall: -3
+  graviteY_Fall: -6
   time_Fall: 0.5
   curve_Fall:
     serializedVersion: 2
@@ -66,21 +67,24 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  angularDragSlerp_Fall: 6
+  angularDragLerp_Fall: 2
+  DirectionInSlerp_Fall: 0

@@ -14,10 +14,12 @@ public class IPMove : IPlayerState
     {
         GestionSpeed(ref _dataController, _dataScriptable);
         CalculDirection(ref _dataController, _dataScriptable);
-
         _dataController.destination += _dataController.direction * _dataController.currentSpeed * Time.fixedDeltaTime;
 
-        gs_move.CheckWall(ref _dataController, _dataScriptable.speed_Move);
+
+        gs_move.CheckWall(ref _dataController);
+        gs_move.CalculPointY(ref _dataController, _dataScriptable);
+
     }
 
     public void ExitState(ref DataController _dataController)
@@ -43,7 +45,7 @@ public class IPMove : IPlayerState
     {
         Vector3 inputMove = new Vector3(GameManager.instance.inputManager.GetInputMove().x, 0, GameManager.instance.inputManager.GetInputMove().y);
 
-        if (_dataScriptable.DirectionInSlerp)
+        if (_dataScriptable.DirectionInSlerp_Move)
         {
             _dataController.direction = Vector3.Slerp(_dataController.direction, Quaternion.Euler(0, GameManager.instance.dataCamera.directionCam.y, 0) * inputMove, Time.fixedDeltaTime * _dataScriptable.angularDragSlerp_Move);
         }
