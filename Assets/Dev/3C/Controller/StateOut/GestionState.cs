@@ -5,6 +5,7 @@ using UnityEngine;
 public class GestionState
 {
     private float currentForceCollision;
+    private Vector3 hitNormal ;
 
     public virtual void CheckWall(ref DataController _dataController)
     {
@@ -24,6 +25,10 @@ public class GestionState
         {
             RaycastHit hit;
 
+            if (Physics.SphereCast(_dataController.destination, 0.5f, -Vector3.up, out hit, 1f, 1 << 0))
+            {
+                hitNormal = hit.normal;
+            }
             // Vérifie s'il y a une collision dans la direction actuelle
             if (Physics.SphereCast(_dataController.destination, 0.5f, Quaternion.LookRotation(_dataController.direction) * directionsWorld[i], out hit, sizes[i], 1 << 0))
             {
@@ -31,7 +36,7 @@ public class GestionState
             }
             else
             {
-                //Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * directionsWorld[i] * sizes[i], Color.green);
+                Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * directionsWorld[i] * sizes[i], Color.green);
             }
         }
     }

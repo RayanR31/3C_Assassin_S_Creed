@@ -26,7 +26,6 @@ public class ControllerMain : MonoBehaviour
 
         GameManager.instance.UpdateDataController(dataController);
         Debug.DrawRay(dataController.destination, dataController.direction * 4f , Color.blue);
-        Debug.Log(GameManager.instance.inputManager.GetInputJump()); 
     }
     private void FixedUpdate()
     {

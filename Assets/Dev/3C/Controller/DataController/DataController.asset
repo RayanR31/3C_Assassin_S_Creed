@@ -18,8 +18,8 @@ MonoBehaviour:
   DirectionInSlerp_Move: 1
   speed_Jump: 6
   pourcentageMagnitude_Jump: 2
-  force_Jump: 20
-  downForce_Jump: 4
+  force_Jump: 15
+  downForce_Jump: 3
   time_Jump: 0.3
   curve_Jump:
     serializedVersion: 2
@@ -27,26 +27,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -0.23207256
-      outSlope: -0.23207256
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.7784157
-      value: 0.8193511
-      inSlope: -0.68291384
-      outSlope: -0.68291384
+      inSlope: -0.10287024
+      outSlope: -0.10287024
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.11062672
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0.1698926
+    - serializedVersion: 3
+      time: 0.9533849
+      value: 0.6999216
+      inSlope: -1.1071906
+      outSlope: -1.1071906
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10583916
+      outWeight: 0.18908978
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -3.6976943
-      outSlope: -3.6976943
+      inSlope: -15.014904
+      outSlope: -15.014904
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
