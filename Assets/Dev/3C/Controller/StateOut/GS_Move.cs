@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class GS_Move : GestionState
 {
+    /// GESTION STATE pour le MOVE
+    ///     /// Cette class est l'enfant de la class gestionState
+    /// Elle stocke toutes les fonctions qui vont permettre de savoir si oui ou non elles doivent changer d'état
+    /// Elles sont appelées directement dans la state concernée
+    /// Cela évite d'avoir des states avec des dizaines et des dizaines d'état.
+    /// Elle contient également une fonction virtuelle pour gérer les collisions du contrôleur.
+    /// Ainsi, les collisions peuvent être modifiées en fonction de l'état si nécessaire. <summary>
+    /// </summary>
+    /// <param name="_dataController"></param>
+    /// 
+
+    /// Si le joueur appuie sur la touche jump alors change d'état en jump
     public void StateInJump(ref DataController _dataController)
     {
         if(GameManager.instance.inputManager.GetInputJump() == true)
@@ -14,6 +26,10 @@ public class GS_Move : GestionState
             GameManager.instance.inputManager.CancelInputJump(); 
         }
     }
+
+    /// <summary>
+    /// Ne fonctionne pas pour l'instant, l'objectif est de snapper le controller sur le sol, pour l'instant si le raycast ne touche rien alors il passe en fall
+    /// </summary>
     private float desY; 
     private Vector3 hitNormal = Vector3.up;
     private float size = 1.2f;
