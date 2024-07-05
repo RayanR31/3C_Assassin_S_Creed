@@ -12,53 +12,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d75fc3cb4c1f7a745a8986b670d5592b, type: 3}
   m_Name: DataController
   m_EditorClassIdentifier: 
-  speed_Move: 12
+  speed_Move: 15
   angularDragSlerp_Move: 10
   angularDragLerp_Move: 2
   DirectionInSlerp_Move: 1
   speed_Jump: 6
-  pourcentageMagnitude_Jump: 2
-  force_Jump: 15
-  downForce_Jump: 3
-  time_Jump: 0.3
+  pourcentageMagnitude_Jump: 10
+  force_Jump: 18
+  downForce_Jump: 6
+  time_Jump: 0.2
   curve_Jump:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: -0.10287024
-      outSlope: -0.10287024
+      value: 1.0024414
+      inSlope: 0.043882966
+      outSlope: 0.043882966
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.1698926
+      outWeight: 0.1652491
     - serializedVersion: 3
-      time: 0.9533849
-      value: 0.6999216
-      inSlope: -1.1071906
-      outSlope: -1.1071906
+      time: 0.28299892
+      value: 1.0001512
+      inSlope: -0.055444997
+      outSlope: -0.055444997
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.10583916
-      outWeight: 0.18908978
+      inWeight: 0.28297904
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6197093
+      value: 0.93928146
+      inSlope: -0.43868273
+      outSlope: -0.43868273
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8554233
+      value: 0.6320657
+      inSlope: -2.646706
+      outSlope: -2.646706
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9427453
+      value: 0.30258182
+      inSlope: -5.26427
+      outSlope: -5.26427
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -15.014904
-      outSlope: -15.014904
-      tangentMode: 34
+      inSlope: -5.235627
+      outSlope: -5.235627
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.29710984
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   angularDragSlerp_Jump: 6
-  angularDragLerp_Jump: 2
+  angularDragLerp_Jump: 1
   DirectionInSlerp_Jump: 0
   speed_Fall: 6
-  pourcentageMagnitude_Fall: 2
+  pourcentageMagnitude_Fall: 1.5
   graviteY_Fall: -12
   time_Fall: 0.5
   curve_Fall:
@@ -67,12 +94,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 3.315403
+      outSlope: 3.315403
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.034021873
     - serializedVersion: 3
       time: 1
       value: 1
@@ -86,5 +113,5 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   angularDragSlerp_Fall: 6
-  angularDragLerp_Fall: 2
+  angularDragLerp_Fall: 1
   DirectionInSlerp_Fall: 0

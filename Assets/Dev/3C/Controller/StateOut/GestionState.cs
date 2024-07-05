@@ -20,7 +20,7 @@ public class GestionState
 
         float[] sizes = { 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f };
 
-        currentForceCollision = 15f; //(speed / 10) * 15;
+        currentForceCollision = 30f; //(speed / 10) * 15;
         // Parcours chaque direction pour détecter les collisions avec les murs
 
         RaycastHit hits;
