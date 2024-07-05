@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterMain : MonoBehaviour
 {
+    private Quaternion direction; 
     // Start is called before the first frame update
     void Start()
     {
@@ -12,7 +13,13 @@ public class CharacterMain : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(GameManager.instance.dataController.direction),Time.deltaTime * 10f); 
+    { 
+        if(GameManager.instance.dataController.direction != Vector3.zero)
+        direction = Quaternion.LookRotation(GameManager.instance.dataController.direction);
+        else
+            direction = Quaternion.identity;
+
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, direction, Time.deltaTime * 10f); 
     }
 }
