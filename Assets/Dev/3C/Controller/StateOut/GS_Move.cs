@@ -48,17 +48,19 @@ public class GS_Move : GestionState
         RaycastHit hit;
 
         // Effectue un SphereCast vers le bas pour d�tecter les collisions avec le sol
-        if (Physics.SphereCast(_dataController.destination, 0.5f, direction, out hit, 1.5f, 1 << 0))
+        if (Physics.SphereCast(_dataController.destination, 0.5f, direction, out hit, GameManager.instance.colliderSphere * 1.5f , 1 << 0))
         {
             _dataController.hitNormal = hit.normal; // Met � jour la normale de collision
 
-            SnapController(ref _dataController.destination.y, hit.point.y + GameManager.instance.snap);
+            SnapController(ref _dataController.destination.y, hit.point.y + GameManager.instance.colliderSphere * 1.05f);
 
             coyoteTime = 0; 
 
         }
         else
         {
+            Debug.DrawRay(_dataController.destination, direction * GameManager.instance.colliderSphere * 1.5f, Color.blue);
+
             coyoteTime += Time.deltaTime;
 
             if (coyoteTime >= 0.2f)

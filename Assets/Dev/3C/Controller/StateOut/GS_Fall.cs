@@ -5,7 +5,7 @@ using UnityEngine;
 public class GS_Fall : GestionState
 {
     /// GESTION STATE pour le FALL
-    ///     /// Cette class est l'enfant de la class gestionState
+    /// Cette class est l'enfant de la class gestionState
     /// Elle stocke toutes les fonctions qui vont permettre de savoir si oui ou non elles doivent changer d'�tat
     /// Elles sont appel�es directement dans la state concern�e
     /// Cela �vite d'avoir des states avec des dizaines et des dizaines d'�tat.
@@ -20,14 +20,14 @@ public class GS_Fall : GestionState
     {
         RaycastHit hit;
 
-        if (Physics.SphereCast(_dataController.destination, 1f, -Vector3.up, out hit, 0.8f, 1 << 0))
+        if (Physics.SphereCast(_dataController.destination, 1f, -Vector3.up, out hit, GameManager.instance.colliderSphere * 0.8f, 1 << 0))
         {
             _dataController.targetState = DataController.State.move;
             _dataController.changeState = true;
         }
         else
         {
-            //Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * -Vector3.up * 1.3f, Color.red);
+            Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(_dataController.direction) * -Vector3.up * GameManager.instance.colliderSphere * 0.8f, Color.blue);
         }
     }
 }

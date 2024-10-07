@@ -29,14 +29,11 @@ public class GestionState
         // Le centre de la sphère
         Vector3 sphereCenter = _dataController.destination;
 
-        // Le rayon de la sphère
-        float sphereRadius = 1f;
-
         // Le tableau pour stocker les colliders avec lesquels la sphère entre en collision
         Collider[] overlappingColliders = new Collider[10];
 
         // Appel de OverlapSphereNonAlloc pour obtenir le nombre de colliders que la sphère chevauche
-        int numOverlappingColliders = Physics.OverlapSphereNonAlloc(sphereCenter, sphereRadius, overlappingColliders);
+        int numOverlappingColliders = Physics.OverlapSphereNonAlloc(sphereCenter, GameManager.instance.colliderSphere, overlappingColliders);
 
         // Parcours du tableau des colliders pour calculer la normale de la surface de collision
         for (int i = 0; i < numOverlappingColliders; i++)

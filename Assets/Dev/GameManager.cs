@@ -40,9 +40,11 @@ public class GameManager : MonoBehaviour
 
     // R�f�rence au DataCamera qui contient des informations sur la cam�ra du jeu
     public DataCamera dataCamera;
-    public float snap;
+    //public float snap;
     public float forceCollision;
-   // public bool stop;
+    public float colliderSphere;
+
+    // public bool stop;
 
 
     // Met � jour le DataController avec de nouvelles donn�es
