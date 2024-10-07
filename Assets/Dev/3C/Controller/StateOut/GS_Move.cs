@@ -6,17 +6,17 @@ using UnityEngine;
 public class GS_Move : GestionState
 {
     /// GESTION STATE pour le MOVE
-    ///     /// Cette class est l'enfant de la class gestionState
-    /// Elle stocke toutes les fonctions qui vont permettre de savoir si oui ou non elles doivent changer d'état
-    /// Elles sont appelées directement dans la state concernée
-    /// Cela évite d'avoir des states avec des dizaines et des dizaines d'état.
-    /// Elle contient également une fonction virtuelle pour gérer les collisions du contrôleur.
-    /// Ainsi, les collisions peuvent être modifiées en fonction de l'état si nécessaire. <summary>
+    /// Cette class est l'enfant de la class gestionState
+    /// Elle stocke toutes les fonctions qui vont permettre de savoir si oui ou non elles doivent changer d'ï¿½tat
+    /// Elles sont appelï¿½es directement dans la state concernï¿½e
+    /// Cela ï¿½vite d'avoir des states avec des dizaines et des dizaines d'ï¿½tat.
+    /// Elle contient ï¿½galement une fonction virtuelle pour gï¿½rer les collisions du contrï¿½leur.
+    /// Ainsi, les collisions peuvent ï¿½tre modifiï¿½es en fonction de l'ï¿½tat si nï¿½cessaire. <summary>
     /// </summary>
     /// <param name="_dataController"></param>
     /// 
 
-    /// Si le joueur appuie sur la touche jump alors change d'état en jump
+    /// Si le joueur appuie sur la touche jump alors change d'ï¿½tat en jump
     public void StateInJump(ref DataController _dataController)
     {
         if(GameManager.instance.inputManager.GetInputJump() == true)
@@ -27,35 +27,50 @@ public class GS_Move : GestionState
         }
     }
 
-    /// <summary>
-    /// Ne fonctionne pas pour l'instant, l'objectif est de snapper le controller sur le sol, pour l'instant si le raycast ne touche rien alors il passe en fall
-    /// </summary>
-    private float desY; 
-    private Vector3 hitNormal = Vector3.up;
-    private float size = 1.2f;
-    public void CalculPointY(ref DataController _dataController , ScriptableObjectController _dataScriptable)
-    {
-        RaycastHit hit;
-        if (Physics.SphereCast(new Vector3(_dataController.destination.x, _dataController.destination.y, _dataController.destination.z), 1f, -Vector3.up/*Quaternion.LookRotation(hitNormal) * -Vector3.forward*/, out hit, size, 1 << 0))
-        {
-           // desY = hit.point.y + 1f;
-            //hitNormal = hit.normal;
-            // Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(hitNormal) * -Vector3.forward * size, Color.blue);
-            //Debug.DrawRay(_dataController.destination, -Vector3.up * size, Color.blue);
-            //_dataController.destination.y += (desY - _dataController.destination.y) * -_dataScriptable.graviteY_Fall * Time.fixedDeltaTime;
-            //_dataController.destination.y = desY; //Mathf.Lerp(_dataController.destination.y, desY,Time.fixedDeltaTime * 100f);
-            /*if(hit.distance > 0.3f)
-            {
-                _dataController.destination.y += _dataScriptable.graviteY_Fall * Time.fixedDeltaTime;
-            }*/
+    public float coyoteTime = 0;
 
-            //size = Vector3.Distance(hit.point, _dataController.destination);
+    public void CalculNormal(ref DataController _dataController)
+    {
+
+        if (_dataController.hitNormal != Vector3.zero && _dataController.hitNormal.y > 0.4f)
+        {
+            direction = Quaternion.LookRotation(_dataController.hitNormal) * -Vector3.forward;
         }
         else
         {
-            //Debug.DrawRay(_dataController.destination, -Vector3.up * size, Color.blue);
-            _dataController.targetState = DataController.State.fall;
-            _dataController.changeState = true;
+            //_dataController.hitNormal = new Vector3(0,1,0);
+            direction =  -Vector3.up;
         }
+
+        Gizmos.color = Color.red;
+        Debug.DrawRay(_dataController.destination, direction * 4f);
+
+        RaycastHit hit;
+
+        // Effectue un SphereCast vers le bas pour dï¿½tecter les collisions avec le sol
+        if (Physics.SphereCast(_dataController.destination, 0.5f, direction, out hit, 1.5f, 1 << 0))
+        {
+            _dataController.hitNormal = hit.normal; // Met ï¿½ jour la normale de collision
+
+            SnapController(ref _dataController.destination.y, hit.point.y + GameManager.instance.snap);
+
+            coyoteTime = 0; 
+
+        }
+        else
+        {
+            coyoteTime += Time.deltaTime;
+
+            if (coyoteTime >= 0.2f)
+            {
+                _dataController.targetState = DataController.State.fall;
+                _dataController.changeState = true;
+            }
+        }
+
+    }
+    private void SnapController(ref float posInit , float targetPos)
+    {
+        posInit = targetPos ;
     }
 }

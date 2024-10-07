@@ -6,37 +6,38 @@ using UnityEngine;
 public class ControllerMain : MonoBehaviour
 {
     /// <summary>
-    /// 3C partie controller : Ce script est le manager qui gère les états du controller.
+    /// 3C partie controller : Ce script est le manager qui gï¿½re les ï¿½tats du controller.
     /// </summary>
 
     // dataController : Stocke les variables essentielles du controller (la vitesse actuelle, la destination, la direction)
     [SerializeField] private DataController dataController = new DataController();
 
-    // IPlayerStateArray : Stocke chaque état dans une liste
+    // IPlayerStateArray : Stocke chaque ï¿½tat dans une liste
     [SerializeField] private List<IPlayerState> IPlayerStateArray = new List<IPlayerState>();
 
-    // scriptableObjectController : Stocke chaque variable utilisée pour les calculs du controller (les vitesses à atteindre, les courbes, etc.)
+    // scriptableObjectController : Stocke chaque variable utilisï¿½e pour les calculs du controller (les vitesses ï¿½ atteindre, les courbes, etc.)
     [SerializeField] private ScriptableObjectController scriptableObjectController;
 
     // Start is called before the first frame update
     private void Start()
     {
-        // Ajoute les interfaces d'état à la liste IPlayerStateArray au démarrage
+        // Ajoute les interfaces d'ï¿½tat ï¿½ la liste IPlayerStateArray au dï¿½marrage
         InitInterface();
-        // Initialise la destination à la position actuelle du joueur au démarrage
+        // Initialise la destination ï¿½ la position actuelle du joueur au dï¿½marrage
         dataController.destination = transform.position;
+        //dataController.hitNormal = -Vector3.up;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        // Vérifie s'il doit changer d'état
+        // Vï¿½rifie s'il doit changer d'ï¿½tat
         ChangeState();
 
-        // La position du gameObject tenant le script se dirige vers la destination en interpolation linéaire 
+        // La position du gameObject tenant le script se dirige vers la destination en interpolation linï¿½aire 
         transform.position = Vector3.Lerp(transform.position, dataController.destination, Time.deltaTime * 6f);
 
-        // Met à jour le dataController du GameManager
+        // Met ï¿½ jour le dataController du GameManager
         GameManager.instance.UpdateDataController(dataController);
 
         // Affiche un rayon indiquant la direction du joueur
@@ -46,11 +47,11 @@ public class ControllerMain : MonoBehaviour
     // FixedUpdate is called at a fixed interval
     private void FixedUpdate()
     {
-        // Exécute l'état actif actuel
+        // Exï¿½cute l'ï¿½tat actif actuel
         PlayStateCurrent();
     }
 
-    // Initialise les interfaces d'état
+    // Initialise les interfaces d'ï¿½tat
     private void InitInterface()
     {
         IPlayerStateArray.Add(new IPMove());
@@ -58,30 +59,30 @@ public class ControllerMain : MonoBehaviour
         IPlayerStateArray.Add(new IPFall());
     }
 
-    // Exécute les fonctions de l'état actif actuel
+    // Exï¿½cute les fonctions de l'ï¿½tat actif actuel
     private void PlayStateCurrent()
     {
-        // Met à jour les données de l'état actif actuel
+        // Met ï¿½ jour les donnï¿½es de l'ï¿½tat actif actuel
         IPlayerStateArray[(int)dataController.currentState].CurrentStateUpdate(ref dataController, scriptableObjectController);
-        // Vérifie s'il doit changer d'état en fonction des inputs
+        // Vï¿½rifie s'il doit changer d'ï¿½tat en fonction des inputs
         IPlayerStateArray[(int)dataController.currentState].ChangeStateByInput(ref dataController);
-        // Vérifie s'il doit changer d'état en fonction de la physique ou de l'environnement
+        // Vï¿½rifie s'il doit changer d'ï¿½tat en fonction de la physique ou de l'environnement
         IPlayerStateArray[(int)dataController.currentState].ChangeStateByNature(ref dataController);
     }
 
-    // Change l'état si nécessaire
+    // Change l'ï¿½tat si nï¿½cessaire
     private void ChangeState()
     {
-        // Si un changement d'état est nécessaire
+        // Si un changement d'ï¿½tat est nï¿½cessaire
         if (dataController.changeState)
         {
-            // Exécute la fonction de sortie de l'état actuel
+            // Exï¿½cute la fonction de sortie de l'ï¿½tat actuel
             IPlayerStateArray[(int)dataController.currentState].ExitState(ref dataController);
-            // Change l'état
+            // Change l'ï¿½tat
             dataController.currentState = dataController.targetState;
-            // Exécute la fonction d'entrée du nouvel état
+            // Exï¿½cute la fonction d'entrï¿½e du nouvel ï¿½tat
             IPlayerStateArray[(int)dataController.currentState].EnterState(ref dataController);
-            // Réinitialise le flag de changement d'état
+            // Rï¿½initialise le flag de changement d'ï¿½tat
             dataController.changeState = false;
         }
     }

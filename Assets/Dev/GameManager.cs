@@ -6,20 +6,20 @@ using UnityEngine.Rendering.Universal;
 public class GameManager : MonoBehaviour
 {
     /// <summary>
-    /// Le GameManager joue un rôle crucial dans la coordination et la gestion des données essentielles du jeu,
-    /// particulièrement en lien avec les trois composants principaux et les inputs,
+    /// Le GameManager joue un rï¿½le crucial dans la coordination et la gestion des donnï¿½es essentielles du jeu,
+    /// particuliï¿½rement en lien avec les trois composants principaux et les inputs,
     /// les inputs
     /// le controller (DataController), 
     /// le character (DataCharacter) (Pas encore disponible), 
-    /// la caméra (DataCamera).
+    /// la camï¿½ra (DataCamera).
     /// </summary>
     #region SINGLETON PATTERN
-    // Instance statique du GameManager accessible depuis n'importe où dans le code
+    // Instance statique du GameManager accessible depuis n'importe oï¿½ dans le code
     public static GameManager instance;
 
     private void Awake()
     {
-        // Vérifie s'il existe déjà une instance et si ce n'est pas celle-ci, la détruit
+        // Vï¿½rifie s'il existe dï¿½jï¿½ une instance et si ce n'est pas celle-ci, la dï¿½truit
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -32,28 +32,32 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    // Référence à l'InputManager qui gère les entrées utilisateur (mouvements, actions, etc.)
+    // Rï¿½fï¿½rence ï¿½ l'InputManager qui gï¿½re les entrï¿½es utilisateur (mouvements, actions, etc.)
     public InputManager inputManager;
 
-    // Référence au DataController qui stocke les données essentielles du contrôleur du joueur
+    // Rï¿½fï¿½rence au DataController qui stocke les donnï¿½es essentielles du contrï¿½leur du joueur
     public DataController dataController;
 
-    // Référence au DataCamera qui contient des informations sur la caméra du jeu
+    // Rï¿½fï¿½rence au DataCamera qui contient des informations sur la camï¿½ra du jeu
     public DataCamera dataCamera;
+    public float snap;
+    public float forceCollision;
+   // public bool stop;
 
-    // Met à jour le DataController avec de nouvelles données
+
+    // Met ï¿½ jour le DataController avec de nouvelles donnï¿½es
     public void UpdateDataController(DataController _dataController)
     {
         dataController = _dataController;
     }
 
-    // Met à jour le DataCamera avec de nouvelles données
+    // Met ï¿½ jour le DataCamera avec de nouvelles donnï¿½es
     public void UpdateDataCamera(DataCamera _dataCamera)
     {
         dataCamera = _dataCamera;
     }
 
-    // Renvoie la direction actuelle de la caméra stockée dans DataCamera
+    // Renvoie la direction actuelle de la camï¿½ra stockï¿½e dans DataCamera
     public Vector3 GetDataCameraDirectionCam()
     {
         return dataCamera.directionCam;

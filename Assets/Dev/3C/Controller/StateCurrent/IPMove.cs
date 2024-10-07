@@ -4,47 +4,47 @@ using UnityEngine;
 
 public class IPMove : IPlayerState
 {
-    private GS_Move gs_move = new GS_Move(); // Instance de la classe GS_Move pour gérer les mouvements spécifiques
+    private GS_Move gs_move = new GS_Move(); // Instance de la classe GS_Move pour gï¿½rer les mouvements spï¿½cifiques
 
     public void EnterState(ref DataController _dataController)
     {
-        // Méthode appelée lors de l'entrée dans cet état. Actuellement vide, peut être utilisée pour initialiser l'état.
+        // Mï¿½thode appelï¿½e lors de l'entrï¿½e dans cet ï¿½tat. Actuellement vide, peut ï¿½tre utilisï¿½e pour initialiser l'ï¿½tat.
     }
 
     public void CurrentStateUpdate(ref DataController _dataController, ScriptableObjectController _dataScriptable)
     {
-        // Gère la vitesse du joueur en fonction des inputs et des données du ScriptableObject
+        // Gï¿½re la vitesse du joueur en fonction des inputs et des donnï¿½es du ScriptableObject
         GestionSpeed(ref _dataController, _dataScriptable);
-        // Calcule la direction du mouvement en fonction des inputs et des données du ScriptableObject
+        // Calcule la direction du mouvement en fonction des inputs et des donnï¿½es du ScriptableObject
         CalculDirection(ref _dataController, _dataScriptable);
-        // Met à jour la destination du joueur en fonction de la direction et de la vitesse actuelles
+        // Met ï¿½ jour la destination du joueur en fonction de la direction et de la vitesse actuelles
         _dataController.destination += _dataController.direction * _dataController.currentSpeed * Time.fixedDeltaTime;
 
-        // Vérifie les collisions avec les murs
+        // Vï¿½rifie les collisions avec les murs
+        gs_move.CalculNormal(ref _dataController);
         gs_move.CheckWall(ref _dataController);
-        // Calcule la position en Y du point de destination
-        gs_move.CalculPointY(ref _dataController, _dataScriptable);
+
     }
 
     public void ExitState(ref DataController _dataController)
     {
-        // Méthode appelée lors de la sortie de cet état. Actuellement vide, peut être utilisée pour nettoyer l'état.
+        // Mï¿½thode appelï¿½e lors de la sortie de cet ï¿½tat. Actuellement vide, peut ï¿½tre utilisï¿½e pour nettoyer l'ï¿½tat.
     }
 
     public void ChangeStateByInput(ref DataController _dataController)
     {
-        // Change l'état en fonction des inputs du joueur
+        // Change l'ï¿½tat en fonction des inputs du joueur
         gs_move.StateInJump(ref _dataController);
     }
 
     public void ChangeStateByNature(ref DataController _dataController)
     {
-        // Méthode appelée pour changer d'état en fonction de la physique ou de l'environnement. Actuellement vide.
+        // Mï¿½thode appelï¿½e pour changer d'ï¿½tat en fonction de la physique ou de l'environnement. Actuellement vide.
     }
 
     private void GestionSpeed(ref DataController _dataController, ScriptableObjectController _dataScriptable)
     {
-        // Définit la vitesse cible en fonction des données du ScriptableObject
+        // Dï¿½finit la vitesse cible en fonction des donnï¿½es du ScriptableObject
         _dataController.targetSpeed = _dataScriptable.speed_Move;
         // Interpole la vitesse actuelle vers la vitesse cible en fonction de l'input du joueur
         _dataController.currentSpeed = Mathf.Lerp(_dataController.currentSpeed, _dataController.targetSpeed * GameManager.instance.inputManager.GetInputMove().magnitude, Time.fixedDeltaTime * 3f);
@@ -52,10 +52,10 @@ public class IPMove : IPlayerState
 
     private void CalculDirection(ref DataController _dataController, ScriptableObjectController _dataScriptable)
     {
-        // Récupère l'input de déplacement du joueur
+        // Rï¿½cupï¿½re l'input de dï¿½placement du joueur
         Vector3 inputMove = new Vector3(GameManager.instance.inputManager.GetInputMove().x, 0, GameManager.instance.inputManager.GetInputMove().y);
 
-        // Calcule la direction du mouvement en utilisant Slerp ou Lerp en fonction des paramètres du ScriptableObject
+        // Calcule la direction du mouvement en utilisant Slerp ou Lerp en fonction des paramï¿½tres du ScriptableObject
         if (_dataScriptable.DirectionInSlerp_Move)
         {
             _dataController.direction = Vector3.Slerp(_dataController.direction, Quaternion.Euler(0, GameManager.instance.dataCamera.directionCam.y, 0) * inputMove, Time.fixedDeltaTime * _dataScriptable.angularDragSlerp_Move);

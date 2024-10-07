@@ -22,4 +22,6 @@ public struct DataController
     public State currentState ;
     public State targetState ;
     public bool changeState ;
+    // Stocke la normale de la surface en cas de collision, initialis�e vers le bas. Nous la stockons car on ne sait jamais nos raycast perdent leurs cible pendant une frame
+    public Vector3 hitNormal ;
 }

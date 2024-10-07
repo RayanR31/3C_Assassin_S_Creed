@@ -4,58 +4,57 @@ using UnityEngine;
 
 public class IPFall : IPlayerState
 {
-    private GS_Fall gs_fall = new GS_Fall(); // Instance de la classe GS_Fall pour gérer les mouvements spécifiques de la chute
+    private GS_Fall gs_fall = new GS_Fall(); // Instance de la classe GS_Fall pour gï¿½rer les mouvements spï¿½cifiques de la chute
 
-    private float ratioT = 0; // Ratio pour la courbe de chute, initialisé à 0
+    private float ratioT = 0; // Ratio pour la courbe de chute, initialisï¿½ ï¿½ 0
 
     public void EnterState(ref DataController _dataController)
     {
-        // Réinitialise le ratioT à 0 lors de l'entrée dans l'état de chute
+        // Rï¿½initialise le ratioT ï¿½ 0 lors de l'entrï¿½e dans l'ï¿½tat de chute
         ratioT = 0;
     }
 
     public void CurrentStateUpdate(ref DataController _dataController, ScriptableObjectController _dataScriptable)
     {
-        // Gère la vitesse du joueur en fonction des inputs et des données du ScriptableObject
+        // Gï¿½re la vitesse du joueur en fonction des inputs et des donnï¿½es du ScriptableObject
         GestionSpeed(ref _dataController, _dataScriptable);
-        // Calcule la direction du mouvement en fonction des inputs et des données du ScriptableObject
+        // Calcule la direction du mouvement en fonction des inputs et des donnï¿½es du ScriptableObject
         CalculDirection(ref _dataController, _dataScriptable);
-        // Gère la gravité appliquée sur l'axe Y pendant la chute
+        // Gï¿½re la gravitï¿½ appliquï¿½e sur l'axe Y pendant la chute
         GestionGravityY(ref _dataController, _dataScriptable);
-        // Gère l'évolution de la courbe de chute
+        // Gï¿½re l'ï¿½volution de la courbe de chute
         GestionCurveJump(ref _dataController, _dataScriptable);
 
-        // Met à jour la destination du joueur en fonction de la direction et de la vitesse actuelles
+        // Met ï¿½ jour la destination du joueur en fonction de la direction et de la vitesse actuelles
         _dataController.destination += _dataController.direction * _dataController.currentSpeed * Time.fixedDeltaTime;
-        // Met à jour la position en Y de la destination en fonction de la gravité et de la courbe de chute
+        // Met ï¿½ jour la position en Y de la destination en fonction de la gravitï¿½ et de la courbe de chute
         _dataController.destination.y += Vector3.up.y * (_dataController.currentGravity * _dataScriptable.curve_Fall.Evaluate(ratioT)) * Time.fixedDeltaTime;
-
-        // Vérifie les collisions avec les murs pendant la chute
+        // Vï¿½rifie les collisions avec les murs pendant la chute
         gs_fall.CheckWall(ref _dataController);
-        // Vérifie si le joueur doit passer à l'état de mouvement
+        // Vï¿½rifie si le joueur doit passer ï¿½ l'ï¿½tat de mouvement
         gs_fall.StateInMove(ref _dataController);
     }
 
     public void ExitState(ref DataController _dataController)
     {
-        // Réinitialise le ratioT à 0 lors de la sortie de l'état de chute
+        // Rï¿½initialise le ratioT ï¿½ 0 lors de la sortie de l'ï¿½tat de chute
         ratioT = 0;
     }
 
     public void ChangeStateByInput(ref DataController _dataController)
     {
-        // Actuellement vide, peut être utilisée pour changer d'état en fonction des inputs du joueur pendant la chute
+        // Actuellement vide, peut ï¿½tre utilisï¿½e pour changer d'ï¿½tat en fonction des inputs du joueur pendant la chute
     }
 
     public void ChangeStateByNature(ref DataController _dataController)
     {
-        // Change l'état en fonction de la physique ou de l'environnement pendant la chute
+        // Change l'ï¿½tat en fonction de la physique ou de l'environnement pendant la chute
         gs_fall.StateInMove(ref _dataController);
     }
 
     private void GestionSpeed(ref DataController _dataController, ScriptableObjectController _dataScriptable)
     {
-        // Définit la vitesse cible en fonction des données du ScriptableObject pour la chute
+        // Dï¿½finit la vitesse cible en fonction des donnï¿½es du ScriptableObject pour la chute
         _dataController.targetSpeed = _dataScriptable.speed_Fall;
         // Interpole la vitesse actuelle vers la vitesse cible en fonction de l'input du joueur
         _dataController.currentSpeed = Mathf.Lerp(_dataController.currentSpeed, _dataController.targetSpeed * GameManager.instance.inputManager.GetInputMove().magnitude, Time.fixedDeltaTime * 3f);
@@ -63,10 +62,10 @@ public class IPFall : IPlayerState
 
     private void CalculDirection(ref DataController _dataController, ScriptableObjectController _dataScriptable)
     {
-        // Récupère l'input de déplacement du joueur, ajusté par un pourcentage spécifique à la chute
+        // Rï¿½cupï¿½re l'input de dï¿½placement du joueur, ajustï¿½ par un pourcentage spï¿½cifique ï¿½ la chute
         Vector3 inputMove = new Vector3(GameManager.instance.inputManager.GetInputMove().x, 0, GameManager.instance.inputManager.GetInputMove().y) * _dataScriptable.pourcentageMagnitude_Fall;
 
-        // Calcule la direction du mouvement en utilisant Slerp ou Lerp en fonction des paramètres du ScriptableObject pour la chute
+        // Calcule la direction du mouvement en utilisant Slerp ou Lerp en fonction des paramï¿½tres du ScriptableObject pour la chute
         if (_dataScriptable.DirectionInSlerp_Fall)
         {
             _dataController.direction = Vector3.Slerp(_dataController.direction, Quaternion.Euler(0, GameManager.instance.dataCamera.directionCam.y, 0) * inputMove, Time.fixedDeltaTime * _dataScriptable.angularDragSlerp_Fall);
@@ -79,13 +78,13 @@ public class IPFall : IPlayerState
 
     private void GestionCurveJump(ref DataController _dataController, ScriptableObjectController _dataScriptable)
     {
-        // Augmente le ratioT en fonction du temps et du temps de chute spécifié dans le ScriptableObject
+        // Augmente le ratioT en fonction du temps et du temps de chute spï¿½cifiï¿½ dans le ScriptableObject
         ratioT += Time.fixedDeltaTime / _dataScriptable.time_Fall;
     }
 
     private void GestionGravityY(ref DataController _dataController, ScriptableObjectController _dataScriptable)
     {
-        // Définit la gravité actuelle appliquée pendant la chute en fonction des données du ScriptableObject
+        // Dï¿½finit la gravitï¿½ actuelle appliquï¿½e pendant la chute en fonction des donnï¿½es du ScriptableObject
         _dataController.currentGravity = _dataScriptable.graviteY_Fall;
     }
 }

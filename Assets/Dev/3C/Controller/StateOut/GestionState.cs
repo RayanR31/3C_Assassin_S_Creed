@@ -4,93 +4,77 @@ using UnityEngine;
 
 public class GestionState
 {
-    /// Cette class est le parent des class GS, ils vont servir à vérifier si oui ou non le controlleur doit changer d'état.
-    /// Cela évite d'avoir des states avec des dizaines et dizaines d'état.
-    /// Elle contient également une fonction virtuelle pour gérer les collisions du contrôleur.
-    /// Ainsi, les collisions peuvent être modifiées en fonction de l'état si nécessaire.
+    /// Cette class est le parent des class GS, ils vont servir ï¿½ vï¿½rifier si oui ou non le controlleur doit changer d'ï¿½tat.
+    /// Cela ï¿½vite d'avoir des states avec des dizaines et dizaines d'ï¿½tat.
+    /// Elle contient ï¿½galement une fonction virtuelle pour gï¿½rer les collisions du contrï¿½leur.
+    /// Ainsi, les collisions peuvent ï¿½tre modifiï¿½es en fonction de l'ï¿½tat si nï¿½cessaire.
     /// <summary>
-    /// Vérifie les collisions avec les murs et ajuste la destination en conséquence.
+    /// Vï¿½rifie les collisions avec les murs et ajuste la destination en consï¿½quence.
     /// </summary>
-    /// <param name="_dataController">Référence au DataController contenant les informations du joueur.</param>
+    /// <param name="_dataController">Rï¿½fï¿½rence au DataController contenant les informations du joueur.</param>
     /// 
     // La force de l'ajustement de la destination
-    private float currentForceCollision;
-    // Stocke la normale de la surface en cas de collision, initialisée vers le bas. Nous la stockons car on ne sait jamais nos raycast perdent leurs cible pendant une frame
-    private Vector3 hitNormal = -Vector3.up;
-    // Stocke la direction du raycast pour détecter les collisions.
-    private Vector3 direction;
+    public float currentForceCollision;
 
+    // Stocke la direction du raycast pour dï¿½tecter les collisions.
+    public Vector3 direction;
+
+    /// <summary>
+    /// Vector3 testNormal;
+    /// </summary>
+    /// <param name="_dataController"></param>
+
+    private void CalculNormalOverlap(ref DataController _dataController)
+    {
+        // Le centre de la sphÃ¨re
+        Vector3 sphereCenter = _dataController.destination;
+
+        // Le rayon de la sphÃ¨re
+        float sphereRadius = 1f;
+
+        // Le tableau pour stocker les colliders avec lesquels la sphÃ¨re entre en collision
+        Collider[] overlappingColliders = new Collider[10];
+
+        // Appel de OverlapSphereNonAlloc pour obtenir le nombre de colliders que la sphÃ¨re chevauche
+        int numOverlappingColliders = Physics.OverlapSphereNonAlloc(sphereCenter, sphereRadius, overlappingColliders);
+
+        // Parcours du tableau des colliders pour calculer la normale de la surface de collision
+        for (int i = 0; i < numOverlappingColliders; i++)
+        {
+            // Obtenir le collider avec lequel la sphÃ¨re entre en collision
+            Collider collider = overlappingColliders[i];
+
+            // Obtenir le point le plus proche sur le collider par rapport au centre de la sphÃ¨re
+            Vector3 closestPoint = collider.ClosestPoint(sphereCenter);
+
+            // Calculer la normale de la surface en prenant la direction du centre de la sphÃ¨re vers le point le plus proche
+            Vector3 normal = (sphereCenter - closestPoint).normalized;
+            currentForceCollision = 30f; // Peut ï¿½tre calculï¿½e dynamiquement en fonction de la vitesse
+            _dataController.destination += (normal * GameManager.instance.forceCollision * Time.fixedDeltaTime);
+
+            //Debug.Log("Surface Normal: " + normal);
+
+            while (Vector3.Distance(sphereCenter, closestPoint) <= 0.60f)
+            {
+                _dataController.direction = Vector3.zero;
+                _dataController.currentSpeed = 0;
+
+                if(normal.y <= -0.8f)
+                {
+                    _dataController.targetState = DataController.State.fall;
+                    _dataController.changeState = true;
+                    break; 
+                }
+
+                //Debug.Log("Distance: " + Vector3.Distance(sphereCenter, closestPoint));
+                return;
+            }
+
+        }
+
+    }
     public virtual void CheckWall(ref DataController _dataController)
     {
-        // Un tableau de directions à vérifier pour les collisions.
-        Vector3[] directionsWorld = {
-        -Vector3.forward,
-        Vector3.forward,
-        Vector3.up,
-        -Vector3.up,
-        Vector3.right,
-        Vector3.left
-    };
-
-        // Définit les tailles pour les SphereCast dans chaque direction
-        float[] sizes = { 0.9f, 0.9f, 0.9f, 0.9f, 0.9f, 0.9f };
-
-        // Définit la force de collision actuelle
-        currentForceCollision = 30f; // Peut être calculée dynamiquement en fonction de la vitesse
-
-        RaycastHit hits;
-
-        // Effectue un SphereCast vers le bas pour détecter les collisions avec le sol
-        if (Physics.SphereCast(_dataController.destination, 0.5f, -Vector3.up, out hits, 4f, 1 << 0))
-        {
-            hitNormal = hits.normal; // Met à jour la normale de collision
-        }
-
-        // Parcourt chaque direction pour détecter les collisions avec les murs
-        for (int i = 0; i < directionsWorld.Length; i++)
-        {
-            RaycastHit hit;
-
-            // Effectue un SphereCast vers le bas pour détecter les collisions avec le sol
-            if (Physics.SphereCast(_dataController.destination, 0.5f, -Vector3.up, out hit, 4f, 1 << 0))
-            {
-                hitNormal = hit.normal; // Met à jour la normale de collision
-            }
-
-            // Calcule la direction du SphereCast en fonction de la normale de collision
-            // On ajoute une sécurité au cas ou la normal = Vector3.zero car sinon Unity nous harcèle de message !!!
-            if (hitNormal != Vector3.zero)
-            {
-                direction = Quaternion.LookRotation(hitNormal) * directionsWorld[i];
-            }
-            else
-            {
-                direction = directionsWorld[i];
-            }
-
-            // Vérifie s'il y a une collision dans la direction actuelle
-            if (Physics.SphereCast(_dataController.destination, 0.5f, direction, out hit, sizes[i], 1 << 0))
-            {
-                // Ajuste la destination en fonction de la normale de collision et de la force de collision
-                _dataController.destination += (hit.normal * currentForceCollision * Time.fixedDeltaTime);
-                // Dessine un rayon rouge pour indiquer une collision
-                Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(hitNormal) * directionsWorld[i] * sizes[i], Color.red);
-            }
-            else
-            {
-                // Dessine un rayon vert pour indiquer l'absence de collision
-                Debug.DrawRay(_dataController.destination, Quaternion.LookRotation(hitNormal) * directionsWorld[i] * sizes[i], Color.green);
-            }
-
-            // Vérifie la collision avec le sol (la deuxième direction dans directionsWorld)
-            if (directionsWorld[i] == directionsWorld[1])
-            {
-                // Si une collision est détectée et que la distance est inférieure ou égale à 0.35, arrête le mouvement
-                if (hit.collider != null && hit.distance <= 0.35f)
-                {
-                    _dataController.direction = Vector3.zero;
-                }
-            }
-        }
+        CalculNormalOverlap(ref _dataController);
     }
 }
