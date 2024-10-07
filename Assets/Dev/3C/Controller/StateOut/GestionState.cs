@@ -14,10 +14,8 @@ public class GestionState
     /// <param name="_dataController">R�f�rence au DataController contenant les informations du joueur.</param>
     /// 
     // La force de l'ajustement de la destination
-    public float currentForceCollision;
+    private float currentForceCollision;
 
-    // Stocke la direction du raycast pour d�tecter les collisions.
-    public Vector3 direction;
 
     /// <summary>
     /// Vector3 testNormal;

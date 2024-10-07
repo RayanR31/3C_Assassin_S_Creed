@@ -14,7 +14,10 @@ public class GS_Move : GestionState
     /// Ainsi, les collisions peuvent �tre modifi�es en fonction de l'�tat si n�cessaire. <summary>
     /// </summary>
     /// <param name="_dataController"></param>
-    /// 
+    ///
+
+    private float coyoteTime = 0;
+    //private Vector3 direction;
 
     /// Si le joueur appuie sur la touche jump alors change d'�tat en jump
     public void StateInJump(ref DataController _dataController)
@@ -27,10 +30,10 @@ public class GS_Move : GestionState
         }
     }
 
-    public float coyoteTime = 0;
 
     public void CalculNormal(ref DataController _dataController)
     {
+        Vector3 direction;
 
         if (_dataController.hitNormal != Vector3.zero && _dataController.hitNormal.y > 0.4f)
         {
