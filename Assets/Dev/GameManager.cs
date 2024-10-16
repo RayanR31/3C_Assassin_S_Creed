@@ -61,4 +61,11 @@ public class GameManager : MonoBehaviour
     {
         return dataCamera.directionCam;
     }
+
+    [ContextMenu("ResetValueDebug")]
+    public void ResetValueDebug()
+    {
+        forceCollision = 20f;
+        colliderSphere = 1f;
+    }
 }
