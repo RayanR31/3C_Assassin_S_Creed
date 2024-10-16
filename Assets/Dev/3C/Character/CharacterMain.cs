@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class CharacterMain : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     // Update is called once per frame
     void Update()
     {
         CalculDirectionWithNormal();
+
+        animator.SetFloat("speed", GameManager.instance.dataController.currentSpeed);
     }
 
     private void CalculDirectionWithNormal()
